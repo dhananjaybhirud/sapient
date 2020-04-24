@@ -1,0 +1,29 @@
+::ng-deep .pagination{
+  flex-wrap: wrap !important;
+}
+
+
+table{
+  tr{
+    th{
+      font-size: 14px;
+    }
+    td{
+      font-size: 15px;
+    }
+  }
+}
+
+
+th[sortable]{
+  cursor: pointer;
+}
+th[sortable].asc:before, th[sortable].desc:before {
+  content: '\2BC6';
+}
+th[sortable].desc:before {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  content: '\2BC5';
+}

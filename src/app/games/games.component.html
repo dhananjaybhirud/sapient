@@ -1,0 +1,92 @@
+<div class="container py-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+          <form>
+            <div class="row mb-2">
+              <div class="col-4">
+                <h4>Game List</h4>
+              </div>
+              <div class="col-4">
+                <div class="form-group form-inline">
+                  <input class="form-control" type="text" placeholder="Search" name="searchTerm" [(ngModel)]="service.searchTerm"/>
+<!--                  <span class="ml-3" *ngIf="service.loading$ | async">Loading...</span>-->
+                  <div class="loader loader-22" *ngIf="service.loading$ | async">
+                    <div class='loader-container'>
+                      <div class='loader-circle-bg'></div>
+                      <div class='loader-circle-sm'></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <select class="form-control" name="pageSize" [(ngModel)]="service.pageSize">
+                  <option [ngValue]="10">10 items per page</option>
+                  <option [ngValue]="50">50 items per page</option>
+                  <option [ngValue]="100">100 items per page</option>
+                </select>
+              </div>
+
+            </div>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th scope="col" sortable="title" (sort)="onSort($event)">Title</th>
+                  <th scope="col" sortable="url" (sort)="onSort($event)">Url</th>
+                  <th scope="col" sortable="platform" (sort)="onSort($event)">Platform</th>
+                  <th scope="col" sortable="score" (sort)="onSort($event)">Score</th>
+                  <th scope="col" sortable="genre" (sort)="onSort($event)">Genre</th>
+                  <th scope="col" sortable="editors_choice" (sort)="onSort($event)">Editors Choice</th>
+                  <th scope="col" sortable="release_year" (sort)="onSort($event)">Release Year</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let game of games$ | async">
+                  <td>
+                    <ngb-highlight [result]="game.title" [term]="service.searchTerm"></ngb-highlight>
+                    {{game.title}}
+                  </td>
+                  <td>
+                    <!--              <ngb-highlight [result]="game.url" [term]="service.searchTerm"></ngb-highlight>-->
+                    <!--              {{game.url}}-->
+                    <a href="{{game.url}}" target="_blank">Goto Game</a>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="game.platform" [term]="service.searchTerm"></ngb-highlight>
+                    {{game.platform}}
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="game.score" [term]="service.searchTerm"></ngb-highlight>
+                    {{game.score}}
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="game.genre" [term]="service.searchTerm"></ngb-highlight>
+                    {{game.genre}}
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="game.editors_choice" [term]="service.searchTerm"></ngb-highlight>
+                    {{game.editors_choice}}
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="game.release_year" [term]="service.searchTerm"></ngb-highlight>
+                    {{game.release_year}}
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="d-flex justify-content-between p-2">
+              <ngb-pagination
+                [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
+              </ngb-pagination>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
